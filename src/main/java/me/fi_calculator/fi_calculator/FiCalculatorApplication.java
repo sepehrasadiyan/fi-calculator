@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FiCalculatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FiCalculatorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FiCalculatorApplication.class, args);
+    }
 
 }
