@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: fi-calc
+      POSTGRES_USER: fi-user
+      POSTGRES_PASSWORD: fi-pass
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  app:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: fi-calc
+      DB_USER: fi-user
+      DB_PASSWORD: fi-pass
+      JWT_SECRET_BASE64: VGhpcy1pcy1hLWR1bW15LXNlY3JldC1nZW5lcmF0ZS1hLWxvbmctaGFyZA==
+    depends_on:
+      db:
+        condition: service_healthy
+    ports: ["8080:8080"]

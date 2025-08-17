@@ -1,2 +1,2 @@
 # fi-calculator
-This project create forcast of your financial process 
+This project create forecast of your financial process 
