@@ -1,7 +1,7 @@
 package me.fi_calculator.fi_calculator.domain.dtos;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-public record RegisterResponse(UUID id, String email, List<String> roles) {
+public record RegisterResponse(UUID id, String email, Set<String> roles) {
 }
