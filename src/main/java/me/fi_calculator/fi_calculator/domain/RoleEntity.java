@@ -1,12 +1,16 @@
 package me.fi_calculator.fi_calculator.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "roles",
         indexes = @Index(name = "idx_roles_code", columnList = "code", unique = true))
+@Setter
+@Getter
 public class RoleEntity {
 
     @Id
