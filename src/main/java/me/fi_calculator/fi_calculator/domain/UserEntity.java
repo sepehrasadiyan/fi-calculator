@@ -8,20 +8,25 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@Table(
+        name = "users",
+        uniqueConstraints = @UniqueConstraint(columnNames = "email"),
+        indexes = {
+                @Index(name = "idx_users_id", columnList = "id"),
+                @Index(name = "idx_users_email", columnList = "email")
+        }
+)
 public class UserEntity implements UserDetails, Persistable<UUID> {
 
     @Id
@@ -41,6 +46,14 @@ public class UserEntity implements UserDetails, Persistable<UUID> {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false)
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @Override
     public UUID getId() {
