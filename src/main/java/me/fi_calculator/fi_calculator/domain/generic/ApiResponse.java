@@ -1,4 +1,4 @@
-package me.fi_calculator.fi_calculator.domain.dtos;
+package me.fi_calculator.fi_calculator.domain.generic;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
