@@ -1,6 +1,7 @@
 package me.fi_calculator.fi_calculator.services;
 
 import me.fi_calculator.fi_calculator.config.app.AppSettings;
+import me.fi_calculator.fi_calculator.domain.UserEntity;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterRequest;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterResponse;
 import me.fi_calculator.fi_calculator.repository.RoleRepository;
@@ -26,7 +27,9 @@ public class UserService {
         users.findByEmailIgnoreCase(registerRequest.email()).ifPresent(x -> {
             throw new IllegalArgumentException("Email already registered");
         });
-
+        UserEntity u = new UserEntity();
+        String normEmail = registerRequest.email().trim().toLowerCase();
+        u.setEmail(normEmail);
         return null;
     }
 }
