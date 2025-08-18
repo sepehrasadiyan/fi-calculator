@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -22,6 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ApiResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest req) {
-        return null;
+        var registerResponse = userService.createUser(req);
+        // Todo: write /api/users
+        return ResponseEntity.created(URI.create("/api/users/" + registerResponse.id().toString())).body(
+                ApiResponse.created(registerResponse)
+        );
     }
 }
