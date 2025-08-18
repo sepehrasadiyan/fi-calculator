@@ -39,7 +39,7 @@ public class UserService {
         UserEntity u = new UserEntity();
         u.setEmail(normEmail);
         u.setPassword(passwordEncoder.encode(registerRequest.password()));
-        Set<RoleEntity> roleEntities = appSettings.defaultUserRoles().stream()
+        Set<RoleEntity> roleEntities = appSettings.getDefaultUserRoles().stream()
                 .map(code -> roles.findByCode(code).orElseGet(() -> {
                     RoleEntity r = new RoleEntity();
                     r.setCode(code);
