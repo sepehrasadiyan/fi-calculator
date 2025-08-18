@@ -23,6 +23,10 @@ public class UserService {
 
     @Transactional
     public RegisterResponse createUser(RegisterRequest registerRequest) {
+        users.findByEmailIgnoreCase(registerRequest.email()).ifPresent(x -> {
+            throw new IllegalArgumentException("Email already registered");
+        });
+
         return null;
     }
 }
