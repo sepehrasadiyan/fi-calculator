@@ -62,13 +62,17 @@ public class AuthController {
                 .secure(appSettings.isCookieSecure())
                 .path(appSettings.getCookiePath())
                 .sameSite(appSettings.getCookieSameSite())
-                .maxAge(Duration.ofSeconds(appSettings.getCookieMaxAgeMinutes() * 60L))
+                .maxAge(Duration.ofSeconds(accessTokenTtlSeconds()))
                 .build();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(ApiResponse.ok(new LoginResult("login successful",
-                        appSettings.getJwtAccessExpMinutes() * 60L)));
+                        accessTokenTtlSeconds())));
+    }
+
+    private long accessTokenTtlSeconds() {
+        return appSettings.getJwtAccessExpMinutes() * 60L;
     }
 
     // You can write Logout api too

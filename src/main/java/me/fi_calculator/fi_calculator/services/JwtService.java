@@ -27,7 +27,7 @@ public class JwtService {
     public String generateAccess(String subjectEmail, UUID userId, Set<String> roleCodes) {
         Key key = key();
         Instant now = Instant.now();
-        Instant exp = now.plusSeconds(settings.getJwtAccessExpMinutes() * 60L);
+        Instant exp = now.plusSeconds(accessTokenTtlSeconds());
 
         JwtBuilder b = Jwts.builder()
                 .setSubject(subjectEmail)
