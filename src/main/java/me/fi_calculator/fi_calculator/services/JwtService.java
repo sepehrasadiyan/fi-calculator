@@ -47,6 +47,27 @@ public class JwtService {
         return b.compact();
     }
 
+    public Jws<Claims> parse(String jwt) {
+        JwtParserBuilder pb = Jwts.parserBuilder()
+                .setSigningKey(key());
+
+        int skew = settings.getJwtClockSkewSeconds();
+        if (skew > 0) pb.setAllowedClockSkewSeconds(skew);
+
+        if (settings.getJwtIssuer() != null && !settings.getJwtIssuer().isBlank()) {
+            pb.requireIssuer(settings.getJwtIssuer());
+        }
+        if (settings.getJwtAudience() != null && !settings.getJwtAudience().isBlank()) {
+            pb.requireAudience(settings.getJwtAudience());
+        }
+
+        return pb.build().parseClaimsJws(jwt);
+    }
+
+    public long accessTokenTtlSeconds() {
+        return settings.getJwtAccessExpMinutes() * 60L;
+    }
+
     private Key key() {
         Key k = signingKey;
         if (k == null) {
