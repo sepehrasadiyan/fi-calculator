@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,5 +58,13 @@ public class UserService {
                 .map(RoleEntity::getCode)
                 .collect(Collectors.toCollection(java.util.TreeSet::new));
         return new RegisterResponse(saved.getId(), saved.getEmail(), roleCodes);
+    }
+
+    public Optional<UserEntity> findByEmail(String email) {
+        return users.findByEmailWithRoles(email);
+    }
+
+    public boolean passwordMatches(String raw, String encoded) {
+        return passwordEncoder.matches(raw, encoded);
     }
 }
