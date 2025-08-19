@@ -28,12 +28,12 @@ public final class AppSettings {
         this.jwtIssuer = p.jwt().issuer();
         this.jwtAudience = p.jwt().audience();
 
-        this.cookieName = p.cookie().name();
-        this.cookiePath = p.cookie().path();
-        this.cookieHttpOnly = p.cookie().httpOnly();
-        this.cookieSecure = p.cookie().secure();
-        this.cookieSameSite = p.cookie().sameSite();
-        this.cookieMaxAgeMinutes = p.cookie().maxAgeMin();
+        this.cookieName = p.cookieAccess().name();
+        this.cookiePath = p.cookieAccess().path();
+        this.cookieHttpOnly = p.cookieAccess().httpOnly();
+        this.cookieSecure = p.cookieAccess().secure();
+        this.cookieSameSite = p.cookieAccess().sameSite();
+        this.cookieMaxAgeMinutes = p.cookieAccess().maxAgeMin();
     }
 
 }

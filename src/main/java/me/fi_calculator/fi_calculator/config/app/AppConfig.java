@@ -17,7 +17,7 @@ public class AppConfig {
     public AppSettings appSettings(AppProperties props) {
         var settings = new AppSettings(props);
         log.info("AppSettings initialized: defaultRoles={}",
-                settings.defaultUserRoles());
+                settings.getDefaultUserRoles());
         return settings;
     }
 }
