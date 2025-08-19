@@ -37,7 +37,14 @@ public class JwtService {
                 .claim("roles", roleCodes == null ? List.of() : roleCodes)
                 .signWith(key, SignatureAlgorithm.HS256);
 
-        return null;
+        if (settings.getJwtIssuer() != null && !settings.getJwtIssuer().isBlank()) {
+            b.setIssuer(settings.getJwtIssuer());
+        }
+        if (settings.getJwtAudience() != null && !settings.getJwtAudience().isBlank()) {
+            b.setAudience(settings.getJwtAudience());
+        }
+
+        return b.compact();
     }
 
     private Key key() {
