@@ -1,8 +1,8 @@
 package me.fi_calculator.fi_calculator.services;
 
 import me.fi_calculator.fi_calculator.config.app.AppSettings;
-import me.fi_calculator.fi_calculator.domain.RoleEntity;
-import me.fi_calculator.fi_calculator.domain.UserEntity;
+import me.fi_calculator.fi_calculator.domain.entity.RoleEntity;
+import me.fi_calculator.fi_calculator.domain.entity.UserEntity;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterRequest;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterResponse;
 import me.fi_calculator.fi_calculator.repository.RoleRepository;

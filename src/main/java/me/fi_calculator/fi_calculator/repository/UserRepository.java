@@ -1,6 +1,6 @@
 package me.fi_calculator.fi_calculator.repository;
 
-import me.fi_calculator.fi_calculator.domain.UserEntity;
+import me.fi_calculator.fi_calculator.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package me.fi_calculator.fi_calculator.domain;
+package me.fi_calculator.fi_calculator.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
