@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import me.fi_calculator.fi_calculator.config.app.ShareContext;
+import me.fi_calculator.fi_calculator.domain.generic.FiRequestContext;
 import me.fi_calculator.fi_calculator.services.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,8 +52,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 var auth = new UsernamePasswordAuthenticationToken(email, null, auths);
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                ShareContext.set(new FiRequestContext(email));
             } catch (Exception ignore) {
                 // unauthenticated
+            } finally {
+                // Todo: share Context here
             }
         }
 
