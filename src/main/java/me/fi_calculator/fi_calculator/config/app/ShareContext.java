@@ -13,4 +13,14 @@ public final class ShareContext {
         org.slf4j.MDC.put("reqId", ctx.requestId().toString());
         org.slf4j.MDC.put("user", ctx.email());
     }
+
+    public static void clear() {
+        TL.remove();
+        org.slf4j.MDC.remove("reqId");
+        org.slf4j.MDC.remove("user");
+    }
+
+    public static FiRequestContext get() {
+        return TL.get();
+    }
 }

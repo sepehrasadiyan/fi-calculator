@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } catch (Exception ignore) {
                 // unauthenticated
             } finally {
-                // Todo: share Context here
+                ShareContext.clear();
             }
         }
 
