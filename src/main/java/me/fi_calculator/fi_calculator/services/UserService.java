@@ -5,6 +5,7 @@ import me.fi_calculator.fi_calculator.domain.entity.RoleEntity;
 import me.fi_calculator.fi_calculator.domain.entity.UserEntity;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterRequest;
 import me.fi_calculator.fi_calculator.domain.dtos.RegisterResponse;
+import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 import me.fi_calculator.fi_calculator.repository.RoleRepository;
 import me.fi_calculator.fi_calculator.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,5 +67,9 @@ public class UserService {
 
     public boolean passwordMatches(String raw, String encoded) {
         return passwordEncoder.matches(raw, encoded);
+    }
+
+    public boolean validForEnginId(EngineId id) {
+        return id.equals(EngineId.MONTE_CARLO);
     }
 }
