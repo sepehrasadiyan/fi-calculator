@@ -7,7 +7,8 @@ import java.util.Objects;
 
 public record FiCalcCommand(
         EngineId engine,
-        FiRequest payload
+        FiRequest payload,
+        String userEmail
 ) {
     public FiCalcCommand {
         Objects.requireNonNull(payload, "Payload cannot be null");

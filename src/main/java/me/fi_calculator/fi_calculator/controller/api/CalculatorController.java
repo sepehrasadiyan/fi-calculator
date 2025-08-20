@@ -1,6 +1,7 @@
 package me.fi_calculator.fi_calculator.controller.api;
 
 import jakarta.validation.Valid;
+import me.fi_calculator.fi_calculator.config.app.ShareContext;
 import me.fi_calculator.fi_calculator.domain.dtos.FiRequest;
 import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 import me.fi_calculator.fi_calculator.domain.generic.ApiResponse;
@@ -18,7 +19,7 @@ public class CalculatorController {
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponse<?>> calculate(    @Valid @RequestBody FiRequest req,
                                                         @RequestParam(defaultValue = "MONTE_CARLO") EngineId engine){
-        var cmd = new FiCalcCommand(engine, req);
+        var cmd = new FiCalcCommand(engine, req, ShareContext.get().email());
 
         return null;
     }
