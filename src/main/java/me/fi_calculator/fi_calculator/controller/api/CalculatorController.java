@@ -1,12 +1,13 @@
 package me.fi_calculator.fi_calculator.controller.api;
 
+import jakarta.validation.Valid;
+import me.fi_calculator.fi_calculator.domain.dtos.FiRequest;
+import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 import me.fi_calculator.fi_calculator.domain.generic.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/fi", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -14,7 +15,8 @@ public class CalculatorController {
 
     @PostMapping(path = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<ApiResponse<?>> calculate(){
+    public ResponseEntity<ApiResponse<?>> calculate(    @Valid @RequestBody FiRequest req,
+                                                        @RequestParam(defaultValue = "MONTE_CARLO") EngineId engine){
         return null;
     }
 }
