@@ -7,6 +7,7 @@ import me.fi_calculator.fi_calculator.services.calculator.models.FiCalcCommand;
 import me.fi_calculator.fi_calculator.services.calculator.models.FiEngineResult;
 import me.fi_calculator.fi_calculator.services.calculator.models.FiResponse;
 import me.fi_calculator.fi_calculator.services.calculator.models.dto.PortfolioAssumptions;
+import me.fi_calculator.fi_calculator.services.calculator.models.dto.SimulationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,14 @@ public class MonteCarloFiEngine implements FiEngine<MonteCarloExtras> {
         }
         log.debug("Calculating FI={} for userMail={}", req.engine(), req.userEmail());
 
-        return new FiEngineResult<>(null, calc(req));
+        FiResponse response = calc(req);
+
+        MonteCarloExtras extras = new MonteCarloExtras(
+                req.payload().simulation().simulations(),
+                System.currentTimeMillis()
+        );
+
+        return new FiEngineResult<>(extras, response);
     }
 
     private FiResponse calc(FiCalcCommand req) {
@@ -66,7 +74,18 @@ public class MonteCarloFiEngine implements FiEngine<MonteCarloExtras> {
         double yearsToFi = monthsToFi / 12.0;
         Integer fiAge = p.currentAge() != null ? (int)Math.round(p.currentAge() + yearsToFi) : null;
         var deterministic = new FiResponse.Deterministic(monthlyRealMeanBD, monthsToFi, yearsToFi, fiAge);
-        return new FiResponse(deterministic);
+        FiResponse.MonteCarlo mcResp = null;
+        if (s.runMonteCarlo()) {
+            MonteCarloEngine engine = new MonteCarloEngine(pa, s.simulations(), s.maxYears(), s.parallel());
+            SimulationResult r = engine.simulateTimeToTarget(totalStartWealth, fiTarget, monthlySavings);
+            var perc = r.percentiles();
+            var respPerc = new FiResponse.Percentiles(perc.p10(), perc.p25(), perc.p50(), perc.p75(), perc.p90());
+            mcResp = new FiResponse.MonteCarlo(r.runs(), r.probabilityWithinYears(s.targetYears()), respPerc);
+        }
+
+        // You can save response As your wish
+
+        return new FiResponse(fiTarget, deterministic, mcResp);
     }
 
 

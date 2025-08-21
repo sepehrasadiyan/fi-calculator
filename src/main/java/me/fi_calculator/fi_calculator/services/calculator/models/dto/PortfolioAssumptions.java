@@ -40,4 +40,14 @@ public record PortfolioAssumptions(
         return Math.pow(1.0 + realAnnual, 1.0 / 12.0) - 1.0;
     }
 
+    public double monthlyRealStdDouble() {
+        double sigmaS = 0.18; double sigmaB = 0.07; double as = allocStocks.doubleValue(); double ab = allocBonds.doubleValue();
+        double corrD = corr.doubleValue();
+        double var = as*as*sigmaS*sigmaS + ab*ab*sigmaB*sigmaB + 2*as*ab*sigmaS*sigmaB*corrD;
+        double sigmaAnnual = Math.sqrt(Math.max(var, 1e-12));
+        double sigmaMonthlyNominal = sigmaAnnual / Math.sqrt(12.0);
+        double sigmaInflMonthly = inflationAnnualStd.doubleValue() / Math.sqrt(12.0);
+        return Math.hypot(sigmaMonthlyNominal, sigmaInflMonthly);
+    }
+
 }
