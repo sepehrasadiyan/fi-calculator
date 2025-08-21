@@ -1,5 +1,5 @@
 # FI Calculator
-
+( I Chose project number 11 in the List )
 A Spring Boot 3 application for forecasting **Financial Independence (FI)** using deterministic and Monte Carlo simulations.  
 Users can register, log in, and run FI projections with configurable assumptions.
 
