@@ -1,6 +1,10 @@
 package me.fi_calculator.fi_calculator.config.app;
 
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,5 +23,19 @@ public class AppConfig {
         log.info("AppSettings initialized: defaultRoles={}",
                 settings.getDefaultUserRoles());
         return settings;
+    }
+
+    @Bean
+    public OpenAPI fireApi() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("FIRE Calculator API")
+                        .version("v1")
+                        .description("User-scoped FIRE calculations with JWT (cookie) auth."))
+                .components(new Components().addSecuritySchemes("bearerAuth",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
     }
 }

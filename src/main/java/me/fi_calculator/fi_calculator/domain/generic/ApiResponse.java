@@ -1,9 +1,11 @@
 package me.fi_calculator.fi_calculator.domain.generic;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
 
+@Schema(name = "ApiResponse", description = "Standard API response")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ApiResponse<T>(
         boolean success,
