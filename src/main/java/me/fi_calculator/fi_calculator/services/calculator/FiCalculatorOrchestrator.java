@@ -16,6 +16,7 @@ public class FiCalculatorOrchestrator {
     }
 
     public void execute(FiCalcCommand cmd) {
+        // You can add more future before every engine. :)
         FiEngine<?> engine = engines.get(cmd.engine());
         FiEngineResult<?> engineResult = engine.calculate(cmd);
     }
