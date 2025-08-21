@@ -6,7 +6,9 @@ import me.fi_calculator.fi_calculator.domain.dtos.FiRequest;
 import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 import me.fi_calculator.fi_calculator.domain.generic.ApiResponse;
 import me.fi_calculator.fi_calculator.services.calculator.FiCalculatorOrchestrator;
+import me.fi_calculator.fi_calculator.services.calculator.base.EngineExtras;
 import me.fi_calculator.fi_calculator.services.calculator.models.FiCalcCommand;
+import me.fi_calculator.fi_calculator.services.calculator.models.FiEngineResult;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,11 +26,13 @@ public class CalculatorController {
 
     @PostMapping(path = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<ApiResponse<?>> calculate(    @Valid @RequestBody FiRequest req,
-                                                        @RequestParam(defaultValue = "MONTE_CARLO") EngineId engine){
+    public ResponseEntity<ApiResponse<?>> calculate(@Valid @RequestBody FiRequest req,
+                                                    @RequestParam(defaultValue = "MONTE_CARLO") EngineId engine) {
         var cmd = new FiCalcCommand(engine, req, ShareContext.get().email());
-        //Todo: Determine OutPut
-        fiCalculatorOrchestrator.execute(cmd);
-        return null;
+        FiEngineResult<? extends EngineExtras> result =
+                fiCalculatorOrchestrator.execute(cmd);
+
+        return ResponseEntity.ok(
+                ApiResponse.ok(result.response()));
     }
 }
