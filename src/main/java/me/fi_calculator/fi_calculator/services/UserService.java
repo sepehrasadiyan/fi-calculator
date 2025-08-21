@@ -8,6 +8,7 @@ import me.fi_calculator.fi_calculator.domain.dtos.outgoing.RegisterResponse;
 import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 import me.fi_calculator.fi_calculator.repository.RoleRepository;
 import me.fi_calculator.fi_calculator.repository.UserRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +62,9 @@ public class UserService {
         return new RegisterResponse(saved.getId(), saved.getEmail(), roleCodes);
     }
 
+    // NOTE: I do not have any operation that force me to use CacheEvict in future
+    // you can add it.
+    @Cacheable(cacheNames = "usersByEmail", key = "#email.toLowerCase()", unless = "#result == null")
     public Optional<UserEntity> findByEmail(String email) {
         return users.findByEmailWithRoles(email);
     }
