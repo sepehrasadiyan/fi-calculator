@@ -1,6 +1,6 @@
 package me.fi_calculator.fi_calculator.services.calculator.models;
 
-import me.fi_calculator.fi_calculator.domain.dtos.FiRequest;
+import me.fi_calculator.fi_calculator.domain.dtos.incoming.FiRequest;
 import me.fi_calculator.fi_calculator.domain.enums.EngineId;
 
 import java.util.Objects;

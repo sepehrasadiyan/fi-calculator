@@ -5,7 +5,7 @@ import me.fi_calculator.fi_calculator.services.UserService;
 import me.fi_calculator.fi_calculator.services.calculator.base.MonteCarloExtras;
 import me.fi_calculator.fi_calculator.services.calculator.models.FiCalcCommand;
 import me.fi_calculator.fi_calculator.services.calculator.models.FiEngineResult;
-import me.fi_calculator.fi_calculator.services.calculator.models.FiResponse;
+import me.fi_calculator.fi_calculator.domain.dtos.outgoing.FiResponse;
 import me.fi_calculator.fi_calculator.services.calculator.models.dto.PortfolioAssumptions;
 import me.fi_calculator.fi_calculator.services.calculator.models.dto.SimulationResult;
 import org.slf4j.Logger;

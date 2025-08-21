@@ -1,4 +1,4 @@
-package me.fi_calculator.fi_calculator.domain.dtos;
+package me.fi_calculator.fi_calculator.domain.dtos.incoming;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

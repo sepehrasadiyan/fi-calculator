@@ -1,0 +1,13 @@
+target/
+.git/
+.gitignore
+**/*.iml
+.idea/
+.vscode/
+.gradle/
+.mvn/wrapper/
+Dockerfile
+docker-compose.yml
+env/
+.envrc
+*.log
